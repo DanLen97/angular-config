@@ -1,5 +1,5 @@
 {
-  "name": "config",
+  "name": "ngx-config-json",
   "version": "0.0.1",
   "peerDependencies": {
     "@angular/common": "^15.0.0",

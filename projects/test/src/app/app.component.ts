@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ConfigService } from 'config';
+import { Config } from './config.model';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'test';
+
+  constructor(public configService: ConfigService<Config>) {
+    const config = configService.config;
+    //     ^?
+    console.log(configService.config.endpoint);
+  }
 }

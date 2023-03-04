@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ConfigModule } from 'projects/config/src/public-api';
+import { ConfigModule } from 'config';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+
 
 @NgModule({
   declarations: [
@@ -12,7 +13,7 @@ import { AppComponent } from './app.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ConfigModule
+    ConfigModule.forRoot('assets/config.json'),
   ],
   providers: [],
   bootstrap: [AppComponent]

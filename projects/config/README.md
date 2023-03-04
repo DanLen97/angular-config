@@ -1,24 +1,41 @@
-# Config
+# Angular config service
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 15.0.0.
+This is a simple Angular service which loads a `config.json` on application statup and allows to access the config via a service.
 
-## Code scaffolding
 
-Run `ng generate component component-name --project config` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project config`.
-> Note: Don't forget to add `--project config` or else it will be added to the default project in your `angular.json` file. 
+## Installation
 
-## Build
+```node
+npm install ngx-config-json
+```
 
-Run `ng build config` to build the project. The build artifacts will be stored in the `dist/` directory.
 
-## Publishing
+## Setup AppModule
 
-After building your library with `ng build config`, go to the dist folder `cd dist/config` and run `npm publish`.
+```typescript
+@NgModule({
+  
+  imports: [
+    ...
+    ConfigModule.forRoot('assets/config.json'), // path to config
+    ...
+  ],
+})
+export class AppModule { }
+```
 
-## Running unit tests
+## Usage
 
-Run `ng test config` to execute the unit tests via [Karma](https://karma-runner.github.io).
+Inject `ConfigService` in your application to access the config.
 
-## Further help
+```typescript
+interface ConfigModel {
+  endpoint: string;
+};
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+export class AppComponent {
+  constructor(configService: ConfigService<ConfigModel>) {
+    const config = configService.config;
+  }
+}
+```
