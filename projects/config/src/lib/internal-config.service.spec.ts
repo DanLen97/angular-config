@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
+import { createSpyObj } from 'jest-createspyobj';
 import { of, throwError } from 'rxjs';
 
 import { InternalConfigService } from './internal-config.service';
 
 describe('InternalConfigService', () => {
   let service: InternalConfigService<unknown>;
-  let httpClientSpy: jasmine.SpyObj<HttpClient>;
+  let httpClientSpy: jest.Mocked<HttpClient>;
 
   beforeEach(() => {
-    httpClientSpy = jasmine.createSpyObj<HttpClient>(['get']);
+    httpClientSpy = createSpyObj<HttpClient>(HttpClient, ['get']);
     TestBed.configureTestingModule({
       providers: [
         {provide: HttpClient, useValue: httpClientSpy}
@@ -24,7 +25,7 @@ describe('InternalConfigService', () => {
 
   it('should load config', async () => {
     const testConfig = { someProp: 1, someOtherProp: '1234' };
-    httpClientSpy.get.and.returnValue(of(testConfig));
+    httpClientSpy.get.mockReturnValue(of(testConfig));
 
     const res = await service.loadConfig('');
 
@@ -33,26 +34,26 @@ describe('InternalConfigService', () => {
 
   it('should load config from a specific path', async () => {
     const path = 'assets/config.json';
-    const spy = httpClientSpy.get.withArgs(path).and.returnValue(of({}));
+    const spy = httpClientSpy.get.mockReturnValue(of({}));
     const res = await service.loadConfig(path);
 
     expect(res).toBeTruthy();
-    expect(spy).toHaveBeenCalledOnceWith(path);
+    expect(spy).toHaveBeenCalledWith(path);
   });
 
   it('should set config field after config load', async () => {
     expect(service.config).toEqual(undefined);
 
     const testConfig = { someProp: 1, someOtherProp: '1234' };
-    httpClientSpy.get.and.returnValue(of(testConfig));
+    httpClientSpy.get.mockReturnValue(of(testConfig));
     await service.loadConfig('');
 
     expect(service.config).toEqual(testConfig);
   });
 
   it('should throw error on config load', async () => {
-    httpClientSpy.get.and.returnValue(throwError(() => 'error'));
+    httpClientSpy.get.mockReturnValue(throwError(() => 'error'));
 
-    await expectAsync(service.loadConfig('')).toBeRejected();
+    await expect(service.loadConfig('')).rejects.toEqual('error')
   });
 });

@@ -1,8 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { TestBed } from '@angular/core/testing';
-import { ConfigModule } from 'config';
+import { createSpyObj } from 'jest-createspyobj';
 import { of } from 'rxjs';
+import { ConfigModule } from './config.module';
 
 @Component({
   selector: 'lib-test-config',
@@ -21,11 +22,11 @@ const TEST_CONFIG: Config = {
 };
 
 describe('ConfigModule', () => {
-  let httpClientSpy: jasmine.SpyObj<HttpClient>;
+  let httpClientSpy: jest.Mocked<HttpClient>;
 
   const createModuleWithConfig = async (config: Config) => {
-    httpClientSpy = jasmine.createSpyObj<HttpClient>(['get']);
-    httpClientSpy.get.and.returnValue(of(config));
+    httpClientSpy = createSpyObj<HttpClient>(HttpClient, ['get']);
+    httpClientSpy.get.mockReturnValue(of(config));
     await TestBed.configureTestingModule({
       declarations: [ TestConfigComponent ],
       imports: [

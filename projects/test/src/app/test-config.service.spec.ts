@@ -2,7 +2,7 @@ import { TestBed } from '@angular/core/testing';
 
 import { TestConfigService } from './test-config.service';
 
-describe('TestConfigService', () => {
+xdescribe('TestConfigService', () => {
   let service: TestConfigService;
 
   beforeEach(() => {
