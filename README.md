@@ -19,8 +19,18 @@ npm install ngx-config-json
 
 ## Usage
 
-### 1. Create your config model class
+### 1. Create your config model
+Create your `config.json` file.
+```js
+// assets/config.json
+{
+  "endpoint": "http://localhost:8080/api"
+}
+```
+
+And create its corresponding class.
 ```typescript
+// config.model.ts
 export class Config {
   endpoint!: string;
 };
@@ -29,6 +39,7 @@ export class Config {
 ### 2. Setup AppModule
 
 ```typescript
+import { Config } from './config.model';
 import { ConfigModule } from 'ngx-config-json';
 
 @NgModule({
@@ -50,6 +61,9 @@ export class AppModule { }
 Inject `Config` in your application to access the config.
 
 ```typescript
+import { Config } from './config.model';
+
+@Component(...)
 export class AppComponent {
   constructor(private readonly config: Config) {
     console.log(config);
