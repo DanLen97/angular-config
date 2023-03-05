@@ -1,6 +1,6 @@
 # Angular config service
 
-This is a simple Angular service which loads a `config.json` on application statup and allows to access the config via a service.
+This is a simple Angular service which loads a `config.json` on application statup and allows to inject the config model into your angular components.
 
 
 ## Installation
@@ -10,14 +10,26 @@ npm install ngx-config-json
 ```
 
 
+## Create your config model class
+```typescript
+export class Config {
+  endpoint!: string;
+};
+```
+
 ## Setup AppModule
 
 ```typescript
+import { ConfigModule } from 'ngx-config-json';
+
 @NgModule({
-  
+  ...
   imports: [
     ...
-    ConfigModule.forRoot('assets/config.json'), // path to config
+    ConfigModule.forRoot({
+      configType: Config,
+      pathToConfig: 'assets/config.json',
+    }),
     ...
   ],
 })
@@ -26,16 +38,12 @@ export class AppModule { }
 
 ## Usage
 
-Inject `ConfigService` in your application to access the config.
+Inject `Config` in your application to access the config.
 
 ```typescript
-interface ConfigModel {
-  endpoint: string;
-};
-
 export class AppComponent {
-  constructor(configService: ConfigService<ConfigModel>) {
-    const config = configService.config;
+  constructor(private readonly config: Config) {
+    console.log(config);
   }
 }
 ```

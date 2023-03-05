@@ -4,18 +4,20 @@ import { ConfigModule } from 'config';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { Config } from './config.model';
 
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    ConfigModule.forRoot('assets/config.json'),
+    ConfigModule.forRoot({
+      configType: Config,
+      pathToConfig: 'assets/config.json',
+    }),
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

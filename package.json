@@ -5,7 +5,9 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:config": "ng build --project config --configuration=production",
     "watch": "ng build --watch --configuration development",
+    "watch:config": "ng build --watch --project config --configuration development",
     "test": "ng test"
   },
   "private": true,

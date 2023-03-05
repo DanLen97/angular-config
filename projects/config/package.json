@@ -1,6 +1,15 @@
 {
   "name": "ngx-config-json",
-  "version": "0.0.1",
+  "version": "0.0.3",
+  "description": "This is a simple Angular service which loads a config.json on application statup and allows to inject the config model into your angular components.",
+  "keywords": [ "angular", "typescript", "json", "config.json", "config", "configuration" ],
+  "homepage": "https://github.com/DanLen97/angular-config#readme",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/DanLen97/angular-config.git"
+  },
+  "author": "Daniel Lengauer <dan.lengauer@gmail.com>",
   "peerDependencies": {
     "@angular/common": "^15.0.0",
     "@angular/core": "^15.0.0"
