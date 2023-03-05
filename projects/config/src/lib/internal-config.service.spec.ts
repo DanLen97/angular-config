@@ -5,7 +5,7 @@ import { of, throwError } from 'rxjs';
 import { InternalConfigService } from './internal-config.service';
 
 describe('InternalConfigService', () => {
-  let service: InternalConfigService<any>;
+  let service: InternalConfigService<unknown>;
   let httpClientSpy: jasmine.SpyObj<HttpClient>;
 
   beforeEach(() => {

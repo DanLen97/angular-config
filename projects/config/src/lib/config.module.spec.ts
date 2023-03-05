@@ -5,7 +5,7 @@ import { ConfigModule } from 'config';
 import { of } from 'rxjs';
 
 @Component({
-  selector: 'test-config',
+  selector: 'lib-test-config',
 })
 class TestConfigComponent {
   constructor(public readonly config: Config) {}
