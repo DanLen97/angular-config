@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { TestBed } from '@angular/core/testing';
-import { of } from 'rxjs';
+import { of, throwError } from 'rxjs';
 
 import { InternalConfigService } from './internal-config.service';
 
@@ -48,5 +48,11 @@ describe('InternalConfigService', () => {
     await service.loadConfig('');
 
     expect(service.config).toEqual(testConfig);
+  });
+
+  it('should throw error on config load', async () => {
+    httpClientSpy.get.and.returnValue(throwError(() => 'error'));
+
+    await expectAsync(service.loadConfig('')).toBeRejected();
   });
 });
