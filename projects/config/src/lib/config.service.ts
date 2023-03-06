@@ -5,7 +5,7 @@ import { firstValueFrom, tap } from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
-export class InternalConfigService<T> {
+export class ConfigService<T> {
 
   public config!: T;
 

@@ -1,11 +1,11 @@
 import { HttpClientModule } from '@angular/common/http';
 import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
-import { InternalConfigService } from './internal-config.service';
+import { ConfigService } from './config.service';
 import { ConfigModuleOptions } from './models/config-module-options.model';
 
 
 const initializeApp = <T>(pathToConfig: string) => {
-  return (config: InternalConfigService<T>) => () => config.loadConfig(pathToConfig);
+  return (config: ConfigService<T>) => () => config.loadConfig(pathToConfig);
 };
 
 @NgModule({
@@ -20,8 +20,8 @@ export class ConfigModule {
     return {
       ngModule: ConfigModule,
       providers: [
-        { provide: APP_INITIALIZER, multi: true, deps: [InternalConfigService], useFactory: initializeApp<T>(pathToConfig) },
-        { provide: type, deps: [InternalConfigService], useFactory: (config: InternalConfigService<T>) => config.config}
+        { provide: APP_INITIALIZER, multi: true, deps: [ConfigService], useFactory: initializeApp<T>(pathToConfig) },
+        { provide: type, deps: [ConfigService], useFactory: (config: ConfigService<T>) => config.config}
       ]
     }
   }
