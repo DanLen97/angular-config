@@ -11,6 +11,7 @@ This is a simple Angular service which loads a `config.json` on application stat
 
 
 ## Installation
+TEST
 
 ```node
 npm install ngx-config-json
