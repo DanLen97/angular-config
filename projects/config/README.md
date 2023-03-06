@@ -58,7 +58,7 @@ export class AppModule { }
 
 ### 3. Use the config in your application
 
-Inject `Config` in your application to access the config.
+Inject `Config` in your application to directly access the config.
 
 ```typescript
 import { Config } from './config.model';
@@ -67,6 +67,19 @@ import { Config } from './config.model';
 export class AppComponent {
   constructor(private readonly config: Config) {
     console.log(config);
+  }
+}
+```
+
+Or inject the `ConfigService` to access the config via a service.
+```ts
+import { Config } from './config.model';
+import { ConfigService } from 'ngx-config-json';
+
+@Component(...)
+export class AppComponent {
+  constructor(private readonly configService: ConfigService<Config>) {
+    console.log(configService.config);
   }
 }
 ```
