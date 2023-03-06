@@ -9,7 +9,8 @@
     "watch:config": "ng build --watch --project config --configuration development",
     "test": "ng test",
     "test:config": "ng test --project config",
-    "lint": "ng lint"
+    "lint": "ng lint",
+    "release": "npm run build:config && changeset publish"
   },
   "private": true,
   "workspaces": [
