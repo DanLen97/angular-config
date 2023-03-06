@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ConfigService } from 'config';
 import { Config } from './config.model';
 
 @Component({
@@ -9,7 +10,8 @@ import { Config } from './config.model';
 export class AppComponent {
   title = 'test';
 
-  constructor(private readonly config: Config) {
+  constructor(config: Config, configService: ConfigService<Config>) {
     console.log(config);
+    console.log(configService.config)
   }
 }

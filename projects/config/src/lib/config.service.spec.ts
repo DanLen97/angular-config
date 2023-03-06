@@ -3,10 +3,10 @@ import { TestBed } from '@angular/core/testing';
 import { createSpyObj } from 'jest-createspyobj';
 import { of, throwError } from 'rxjs';
 
-import { InternalConfigService } from './internal-config.service';
+import { ConfigService } from './config.service';
 
-describe('InternalConfigService', () => {
-  let service: InternalConfigService<unknown>;
+describe('ConfigService', () => {
+  let service: ConfigService<unknown>;
   let httpClientSpy: jest.Mocked<HttpClient>;
 
   beforeEach(() => {
@@ -16,7 +16,7 @@ describe('InternalConfigService', () => {
         {provide: HttpClient, useValue: httpClientSpy}
       ]
     });
-    service = TestBed.inject(InternalConfigService);
+    service = TestBed.inject(ConfigService);
   });
 
   it('should be created', () => {
