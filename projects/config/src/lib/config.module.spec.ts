@@ -4,12 +4,14 @@ import { TestBed } from '@angular/core/testing';
 import { createSpyObj } from 'jest-createspyobj';
 import { of } from 'rxjs';
 import { ConfigModule } from './config.module';
+import { ConfigService } from './config.service';
+import { ConfigModuleOptions } from './models/config-module-options.model';
 
 @Component({
   selector: 'lib-test-config',
 })
 class TestConfigComponent {
-  constructor(public readonly config: Config) {}
+  constructor(public readonly config: Config, public readonly configService: ConfigService<Config>) {}
 }
 
 class Config {
@@ -24,15 +26,13 @@ const TEST_CONFIG: Config = {
 describe('ConfigModule', () => {
   let httpClientSpy: jest.Mocked<HttpClient>;
 
-  const createModuleWithConfig = async (config: Config) => {
+  const createModuleWithConfig = async (config: Config, opts: ConfigModuleOptions<Config> = { configType: Config, pathToConfig: '' }) => {
     httpClientSpy = createSpyObj<HttpClient>(HttpClient, ['get']);
     httpClientSpy.get.mockReturnValue(of(config));
     await TestBed.configureTestingModule({
       declarations: [ TestConfigComponent ],
       imports: [
-        ConfigModule.forRoot({
-          configType: Config
-        })
+        ConfigModule.forRoot({ ...opts }),
       ],
       providers: [
         {provide: HttpClient, useValue: httpClientSpy}
@@ -53,5 +53,7 @@ describe('ConfigModule', () => {
 
     expect(component).toBeTruthy();
     expect(component.config).toEqual(TEST_CONFIG);
+    expect(component.configService.config).toEqual(TEST_CONFIG);
+    expect(httpClientSpy.get).toHaveBeenCalledTimes(1);
   });
 });
