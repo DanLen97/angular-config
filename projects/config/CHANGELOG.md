@@ -1,5 +1,11 @@
 # ngx-config-json
 
+## 0.2.0
+
+### Minor Changes
+
+- 75bc706: Add `ConfigService<T>.configLoaded()` Promise to allow users to await the config loading process
+
 ## 0.1.1
 
 ### Patch Changes
