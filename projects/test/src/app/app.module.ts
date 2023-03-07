@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
+import { APP_INITIALIZER, NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ConfigModule } from 'config';
+import { ConfigModule, ConfigService } from 'config';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,7 +17,14 @@ import { Config } from './config.model';
       pathToConfig: 'assets/config.json',
     }),
   ],
-  providers: [],
+  providers: [
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [ConfigService],
+      useFactory: (configService: ConfigService<Config>) => () => configService.configLoaded().then(config => console.log(config))
+    },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
