@@ -6,7 +6,7 @@ This is a simple Angular service which loads a `config.json` on application stat
 - [Installation](#installation)
 - [Usage](#usage)
   - [1. Create your config model class](#1-create-your-config-model-class)
-  - [2. Setup AppModule](#2-setup-appmodule)
+  - [2. Setup via AppModule or with Provider function](#2-setup-via-appmodule-or-with-provider-function)
   - [3. Use the config in your application](#3-use-the-config-in-your-application)
 
 
@@ -36,7 +36,7 @@ export class Config {
 };
 ```
 
-### 2. Setup AppModule
+### 2. Setup via AppModule or with Provider function
 
 ```typescript
 import { Config } from './config.model';
@@ -56,6 +56,20 @@ import { ConfigModule } from 'ngx-config-json';
 export class AppModule { }
 ```
 
+OR
+
+```typescript
+bootstrapApplication(AppComponent, {
+  providers: [
+    ...
+    provideConfig({
+      configType: Config,
+      pathToConfig: 'assets/config.json',
+    }),
+  ],
+});
+```
+
 ### 3. Use the config in your application
 
 Inject `Config` in your application to directly access the config.
@@ -65,9 +79,7 @@ import { Config } from './config.model';
 
 @Component(...)
 export class AppComponent {
-  constructor(private readonly config: Config) {
-    console.log(config);
-  }
+  config = inject(Config);
 }
 ```
 
@@ -78,8 +90,6 @@ import { ConfigService } from 'ngx-config-json';
 
 @Component(...)
 export class AppComponent {
-  constructor(private readonly configService: ConfigService<Config>) {
-    console.log(configService.config);
-  }
+  config = inject(ConfigService<Config>).config;
 }
 ```

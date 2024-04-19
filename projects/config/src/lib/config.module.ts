@@ -1,5 +1,5 @@
-import { HttpClientModule } from '@angular/common/http';
-import { APP_INITIALIZER, ModuleWithProviders, NgModule } from '@angular/core';
+import { HttpClientModule, provideHttpClient } from '@angular/common/http';
+import { APP_INITIALIZER, EnvironmentProviders, ModuleWithProviders, NgModule, makeEnvironmentProviders } from '@angular/core';
 import { ConfigService, InternalConfigService } from './config.service';
 import { ConfigModuleOptions } from './models/config-module-options.model';
 
@@ -36,3 +36,23 @@ export class ConfigModule {
     };
   }
 }
+
+export const provideConfig = <T = unknown>({
+  configType: type,
+  pathToConfig = 'assets/config.json',
+}: ConfigModuleOptions<T>): EnvironmentProviders => {
+  return makeEnvironmentProviders([
+    provideHttpClient(),
+    {
+      provide: APP_INITIALIZER,
+      multi: true,
+      deps: [InternalConfigService],
+      useFactory: initializeApp<T>(pathToConfig),
+    },
+    {
+      provide: type,
+      deps: [ConfigService],
+      useFactory: (config: ConfigService<T>) => config.config,
+    },
+  ]);
+};
