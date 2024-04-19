@@ -1,5 +1,11 @@
 # ngx-config-json
 
+## 0.3.0
+
+### Minor Changes
+
+- 3cf4d78: Introduce provideConfig function for setup without AppModule
+
 ## 0.2.0
 
 ### Minor Changes

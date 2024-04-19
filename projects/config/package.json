@@ -1,6 +1,6 @@
 {
   "name": "ngx-config-json",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "This is a simple Angular service which loads a config.json on application statup and allows to inject the config model into your angular components.",
   "keywords": [
     "angular",
