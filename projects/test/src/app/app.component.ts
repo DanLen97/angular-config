@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ConfigService } from 'config';
 import { Config } from './config.model';
 
@@ -8,10 +8,6 @@ import { Config } from './config.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'test';
-
-  constructor(config: Config, configService: ConfigService<Config>) {
-    console.log(config);
-    console.log(configService.config)
-  }
+  config = inject(Config);
+  config2 = inject(ConfigService<Config>).config;
 }

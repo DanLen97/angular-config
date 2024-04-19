@@ -65,9 +65,7 @@ import { Config } from './config.model';
 
 @Component(...)
 export class AppComponent {
-  constructor(private readonly config: Config) {
-    console.log(config);
-  }
+  config = inject(Config);
 }
 ```
 
@@ -78,8 +76,6 @@ import { ConfigService } from 'ngx-config-json';
 
 @Component(...)
 export class AppComponent {
-  constructor(private readonly configService: ConfigService<Config>) {
-    console.log(configService.config);
-  }
+  config = inject(ConfigService<Config>).config;
 }
 ```
