@@ -7,17 +7,15 @@ import { Config } from './config.model';
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterTestingModule
-      ],
-      declarations: [
+    imports: [
+        RouterTestingModule,
         AppComponent
-      ],
-      providers: [
-        { provide: Config, useValue: {}},
-        { provide: ConfigService, useValue: {}},
-      ]
-    }).compileComponents();
+    ],
+    providers: [
+        { provide: Config, useValue: {} },
+        { provide: ConfigService, useValue: {} },
+    ]
+}).compileComponents();
   });
 
   it('should create the app', () => {
